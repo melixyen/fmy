@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-TW" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>RONG-DEMO jd</title>
+<style type="text/css">
+@charset "utf-8";
+
+body {
+    /*font-family:'細明體', "PMingLiU";*/
+    font-size: 14px;
+    margin: 0px;
+    height: 10000px;
+}
+
+#bgScroll {
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	
+}
+#movement{
+	position: absolute;
+	transition: all 500ms ease-out;
+}
+#pic, #svg{
+	position: absolute;
+	left: 0; top: 0;
+}
+#svg, #svg path{
+	transition: all 200ms ease-out;
+}
+#svg path{
+	stroke-linecap:round; stroke-linejoin:miter; stroke-miterlimit: 4; stroke-opacity: 1;
+}
+
+</style>
+
+<script type="text/javascript">
+
+var pxRate = 3;//Adjust image resize rate
+
+TT ={
+	picWidth: 564,
+	picHeight: 1432,
+	bgWidth: pxRate * 564,
+	bgHeight: pxRate *1432,
+	scrollRate: 2,
+	moveTable: [
+		[0, 193, 112], [3, 193, 230], [8, 193, 371], [13, 193, 485], [18, 293, 518], [24, 300, 412],
+		[29, 400, 340], [34, 400, 472], [40, 400, 603], [45, 400, 703], [50, 450, 790],
+		[54, 393, 895], [60, 400, 945], [65, 276, 929], [70, 222, 862], [75, 180, 1000],
+		[80, 180, 1155], [89, 300, 1200], [90, 335, 1200], [93, 395, 1295], [100, 395, 1350]
+	]
+}
+
+function getRealPX(x,y){
+	if(typeof(x)=='object' && x.length && x.map){
+		y = x[1];
+		x = x[0];
+	}
+	return [x*pxRate, y*pxRate];
+}
+function moveScreen(){
+	var scTop = document.documentElement.scrollTop,
+		scHeight = document.documentElement.scrollHeight - window.innerHeight;
+	
+	var per = (scTop / scHeight) * 100;
+	var ary = TT.moveTable[0];
+	if(per>0){
+		for(var i=0; i<TT.moveTable.length; i++){
+			if(per < TT.moveTable[i][0]) break;
+			ary = TT.moveTable[i]
+		}
+	}
+	var xy = getRealPX(ary[1], ary[2]);
+	var viewWidth = window.innerWidth,
+		viewHeight = window.innerHeight;
+	
+	var moveX = 0 - (xy[0] - (viewWidth / 2)),
+		moveY = 0 - (xy[1] - (viewHeight / 2));
+	var movement = document.getElementById('movement');
+	movement.style.left = moveX + 'px';
+	movement.style.top = moveY + 'px';
+}
+
+function initFn(){
+	var pic = document.getElementById('pic');
+	pic.style.width = TT.bgWidth + 'px';
+	pic.style.height = TT.bgHeight + 'px';
+	
+	var svg = document.getElementById('svg');
+	svg.style.width = TT.bgWidth + 'px';
+	svg.style.height = TT.bgHeight + 'px';
+	
+	var line1 = document.getElementById('line1');
+	var svgLineLength = line1.getTotalLength();
+	line1.style.strokeDasharray = svgLineLength;
+	line1.style.strokeDashoffset = svgLineLength;
+	document.body.style.height = svgLineLength * TT.scrollRate+ 'px';
+	
+	
+	document.documentElement.scrollTop = 0;
+	window.addEventListener('scroll', function(e){
+		//Draw Line
+		var scTop = document.documentElement.scrollTop,
+			scHeight = document.documentElement.scrollHeight - window.innerHeight;
+		var per = (scTop / scHeight) * 1;
+		var lineDashOffset = svgLineLength * (1-per);
+		line1.style.strokeDashoffset = lineDashOffset;
+		
+		//Move Screen
+		moveScreen();
+	});
+	moveScreen();
+}
+
+</script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<!-- -->
+<!-- -->
+</head>
+<body onload="initFn()">
+	<div id="bgScroll">
+		<div id="movement">
+			<img src="dw.jpg" id="pic">
+			<svg id="svg" version="1.1" id="Layer_1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 564 1432">
+				<path id="line1" style="fill:none; stroke:#FF3333; stroke-width:3;  stroke-dasharray: 0; stroke-dashoffset:0"
+	
+					d="M 193,112 V 505 C 193,505, 242,600, 302,505 V 380 Q 302,340, 350,340 H 399 
+					V 765 C 484,765, 484,895, 399,895 H 360 C 345,895, 345,926, 360,926 H 388 C 404,926, 404,955, 388,955 H 341 Q 250,955, 250,863 
+					H 230 Q 189,873, 180,910 V 1163 Q 190,1199, 217,1199 H 356 Q 390,1199, 396,1239 V 1355">
+				</path>
+			</svg>
+		</div>
+	</div>
+</body>
+</html>
