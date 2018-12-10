@@ -39,6 +39,12 @@ body {
 	stroke-linecap:round; stroke-linejoin:miter; stroke-miterlimit: 4; stroke-opacity: 1;
 }
 
+.setItem{
+	display: block;
+	background-color: rgba(244,244,244,0.8);
+	margin: 10px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -67,8 +73,8 @@ function getRealPX(x,y){
 	return [x*pxRate, y*pxRate];
 }
 function moveScreen(){
-	var scTop = document.documentElement.scrollTop,
-		scHeight = document.documentElement.scrollHeight - window.innerHeight;
+	var scTop = document.documentElement.scrollTop || document.body.scrollTop,
+		scHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
 	
 	var per = (scTop / scHeight) * 100;
 	var ary = TT.moveTable[0];
@@ -87,6 +93,14 @@ function moveScreen(){
 	var movement = document.getElementById('movement');
 	movement.style.left = moveX + 'px';
 	movement.style.top = moveY + 'px';
+}
+function changeSet(){
+	var vColor = document.getElementById('vColor').value;
+	var line1 = document.getElementById('line1');
+	line1.style.stroke = vColor;
+	line1.style.strokeWidth = document.getElementById('vNumber').value;
+	TT.scrollRate = document.getElementById('vSpeed').value;
+	initFn();
 }
 
 function initFn(){
@@ -108,8 +122,8 @@ function initFn(){
 	document.documentElement.scrollTop = 0;
 	window.addEventListener('scroll', function(e){
 		//Draw Line
-		var scTop = document.documentElement.scrollTop,
-			scHeight = document.documentElement.scrollHeight - window.innerHeight;
+		var scTop = document.documentElement.scrollTop || document.body.scrollTop,
+			scHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
 		var per = (scTop / scHeight) * 1;
 		var lineDashOffset = svgLineLength * (1-per);
 		line1.style.strokeDashoffset = lineDashOffset;
@@ -129,7 +143,7 @@ function initFn(){
 	<div id="bgScroll">
 		<div id="movement">
 			<img src="dw.jpg" id="pic">
-			<svg id="svg" version="1.1" id="Layer_1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 564 1432">
+			<svg id="svg" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 564 1432">
 				<path id="line1" style="fill:none; stroke:#FF3333; stroke-width:3;  stroke-dasharray: 0; stroke-dashoffset:0"
 	
 					d="M 193,112 V 505 C 193,505, 242,600, 302,505 V 380 Q 302,340, 350,340 H 399 
@@ -138,6 +152,11 @@ function initFn(){
 				</path>
 			</svg>
 		</div>
+	</div>
+	<div id="set" style="font-size:X-Large; max-width:100%; position:absolute; left:0; top:0;">
+		<div class="setItem">顏色:<input type="color" id="vColor" onchange="changeSet()" value="#FF3333" /></div>
+		<div class="setItem">粗細:<input type="number" id="vNumber" min="1" max="30" onchange="changeSet()" value="3" style="width:40px;" /></div>
+		<div class="setItem">速率:<input type="number" id="vSpeed" min="1" max="30" onchange="changeSet()" value="2" style="width:40px;" /></div>
 	</div>
 </body>
 </html>
