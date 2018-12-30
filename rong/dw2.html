@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-TW" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>RONG-DEMO dw2</title>
+<style type="text/css">
+@charset "utf-8";
+
+body {
+    /*font-family:'細明體', "PMingLiU";*/
+    font-size: 14px;
+    margin: 0px;
+    height: 10000px;
+}
+
+#bgScroll {
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	
+}
+#movement{
+	position: absolute;
+	transition: all 500ms ease-out;
+}
+#pic, #svg{
+	position: absolute;
+	left: 0; top: 0;
+}
+#svg, #svg path{
+	transition: all 200ms ease-out;
+}
+#svg path{
+	stroke-linecap:round; stroke-linejoin:miter; stroke-miterlimit: 4; stroke-opacity: 1;
+}
+
+.setItem{
+	display: block;
+	background-color: rgba(244,244,244,0.8);
+	margin: 10px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+var pxRate = 0.25;//Adjust image resize rate
+
+TT ={
+	picWidth: 9916.99,
+	picHeight: 6994.7,
+	bgWidth: pxRate * 9916.99,
+	bgHeight: pxRate *6994.7,
+	scrollRate: 0.5,
+	moveTable: [
+		[0, 193, 112], [3, 193, 230], [8, 193, 371], [13, 193, 485], [18, 293, 518], [24, 300, 412],
+		[29, 400, 340], [34, 400, 472], [40, 400, 603], [45, 400, 703], [50, 450, 790],
+		[54, 393, 895], [60, 400, 945], [65, 276, 929], [70, 222, 862], [75, 180, 1000],
+		[80, 180, 1155], [89, 300, 1200], [90, 335, 1200], [93, 395, 1295], [100, 395, 1350]
+	]
+}
+
+function getRealPX(x,y){
+	if(typeof(x)=='object' && x.length && x.map){
+		y = x[1];
+		x = x[0];
+	}
+	return [x*pxRate, y*pxRate];
+}
+function moveScreen(){
+	var scTop = document.documentElement.scrollTop || document.body.scrollTop,
+		scHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+	
+	var per = (scTop / scHeight) * 100;
+	var ary = TT.moveTable[0];
+	if(per>0){
+		for(var i=0; i<TT.moveTable.length; i++){
+			if(per < TT.moveTable[i][0]) break;
+			ary = TT.moveTable[i]
+		}
+	}
+	var xy = getRealPX(ary[1], ary[2]);
+	var viewWidth = window.innerWidth,
+		viewHeight = window.innerHeight;
+	
+	var moveX = 0 - (xy[0] - (viewWidth / 2)),
+		moveY = 0 - (xy[1] - (viewHeight / 2));
+	var movement = document.getElementById('movement');
+	movement.style.left = moveX + 'px';
+	movement.style.top = moveY + 'px';
+}
+function changeSet(){
+	var vColor = document.getElementById('vColor').value;
+	var line1 = document.getElementById('line1');
+	line1.style.stroke = vColor;
+	line1.style.strokeWidth = document.getElementById('vNumber').value;
+	TT.scrollRate = document.getElementById('vSpeed').value;
+	initFn();
+}
+
+function initFn(){
+
+	var pic = document.getElementById('pic');
+	pic.style.width = TT.bgWidth + 'px';
+	pic.style.height = TT.bgHeight + 'px';
+	
+	var svg = document.getElementById('svg');
+	svg.style.width = TT.bgWidth + 'px';
+	svg.style.height = TT.bgHeight + 'px';
+
+	var line1 = document.getElementById('line1');
+	var svgLineLength = line1.getTotalLength();
+	line1.style.strokeDasharray = svgLineLength;
+	line1.style.strokeDashoffset = svgLineLength;
+	document.body.style.height = svgLineLength * TT.scrollRate+ 'px';
+	
+	
+	document.documentElement.scrollTop = 0;
+	window.addEventListener('scroll', function(e){
+		//Draw Line
+		var scTop = document.documentElement.scrollTop || document.body.scrollTop,
+			scHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+		var per = (scTop / scHeight) * 1;
+		var lineDashOffset = svgLineLength * (1-per);
+		line1.style.strokeDashoffset = lineDashOffset;
+		
+		//Move Screen
+		//moveScreen();
+	});
+	//moveScreen();
+}
+
+</script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<!-- -->
+<!-- -->
+</head>
+<body onload="initFn()">
+	<div id="bgScroll">
+		<div id="movement">
+			<img src="dw2.svg" id="pic">
+			<svg id="svg" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 9916.99 6994.7">
+				<!--<path id="line1" style="fill:none;stroke:#b0e3ff;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;  stroke-dasharray: 0; stroke-dashoffset:0"-->
+				<path id="line1" style="fill:none;stroke:#b0e3ff;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;"
+	
+					d="M2159.2,978.24l2896.29.51c153.18,0,277.36,124.18,277.36,277.36v900c0,357,289.4,646.39,646.39,646.39h-20l1719.35.51c471.16,0,853.1,381.94,853.1,853.1V5438h-.14c0,268-217.27,485.27-485.27,485.27H1089.46c-153.18,0-277.35-124.18-277.35-277.36V4481.23c0-153.19,124.17-277.36,277.35-277.36H2926.25c153.18,0,277.36,124.17,277.36,277.36s124.17,277.35,277.35,277.35H6184.08c273.4,0,495-221.63,495-495s-221.64-495-495-495H4234c-153.18,0-277.36-124.18-277.36-277.36V2548.63c0-153.18-124.18-277.36-277.36-277.36H2159.2c-357,0-646.39-289.4-646.39-646.39s289.4-646.39,646.39-646.39Z">
+				</path>
+			</svg>
+		</div>
+	</div>
+	<div id="set" style="font-size:X-Large; max-width:100%; position:absolute; left:0; top:0;">
+		<div class="setItem">顏色:<input type="color" id="vColor" onchange="changeSet()" value="#b0e3ff" /></div>
+		<div class="setItem">粗細:<input type="number" id="vNumber" min="1" max="30" onchange="changeSet()" value="6" style="width:40px;" /></div>
+		<div class="setItem">速率:<input type="number" id="vSpeed" min="1" max="30" onchange="changeSet()" value="1" style="width:40px;" /></div>
+	</div>
+</body>
+</html>
