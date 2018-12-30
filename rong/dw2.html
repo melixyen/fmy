@@ -28,14 +28,14 @@ body {
 	position: absolute;
 	transition: all 500ms ease-out;
 }
-#pic, #svg{
+#pic, #dynamicLine{
 	position: absolute;
 	left: 0; top: 0;
 }
-#svg, #svg path{
+#svg, #dynamicLine path{
 	transition: all 200ms ease-out;
 }
-#svg path{
+#dynamicLine path{
 	stroke-linecap:round; stroke-linejoin:miter; stroke-miterlimit: 4; stroke-opacity: 1;
 }
 
@@ -122,9 +122,9 @@ function initFn(){
 	pic.style.width = TT.bgWidth + 'px';
 	pic.style.height = TT.bgHeight + 'px';
 	
-	var svg = document.getElementById('svg');
-	svg.style.width = TT.bgWidth + 'px';
-	svg.style.height = TT.bgHeight + 'px';
+	var dynamicLine = document.getElementById('dynamicLine');
+	dynamicLine.style.width = TT.bgWidth + 'px';
+	dynamicLine.style.height = TT.bgHeight + 'px';
 
 	var line1 = document.getElementById('line1');
 	var svgLineLength = line1.getTotalLength();
@@ -157,7 +157,7 @@ function initFn(){
 	<div id="bgScroll">
 		<div id="movement">
 			<img src="dw2.svg" id="pic">
-			<svg id="svg" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 9916.99 6994.7">
+			<svg id="dynamicLine" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 9916.99 6994.7">
 				<path id="line1" style="fill:none;stroke:#b0e3ff;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;  stroke-dasharray: 0; stroke-dashoffset:0"
 					d="M2790.57,2271.27h888.71c153.18,0,277.36,124.18,277.36,277.36v942.52c0,153.18,124.18,277.36,277.36,277.36H6184.08c273.4,0,495,221.64,495,495s-221.64,495-495,495H3481c-153.18,0-277.35-124.17-277.35-277.35s-124.18-277.36-277.36-277.36H1089.46c-153.18,0-277.35,124.17-277.35,277.36V5645.9c0,153.18,124.17,277.36,277.35,277.36H8046.28c268,0,485.27-217.26,485.27-485.27h.14V3656.09c0-471.16-381.94-853.1-853.1-853.1l-1719.35-.51h20c-357,0-646.39-289.4-646.39-646.39v-900c0-153.18-124.18-277.36-277.36-277.36l-2896.29-.51v.25c-357,0-646.39,289.4-646.39,646.39s289.4,646.39,646.39,646.39H2789">
 				</path>
