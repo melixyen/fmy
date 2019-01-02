@@ -90,6 +90,7 @@ TT ={
 
 function printPathPercent(per){
 	per = Math.floor(per*100) / 100;
+	//console.log(per);
 	var domD = document.getElementById('debugWin');
 	if(domD){
 		domD.innerHTML = per + '%';
@@ -199,7 +200,7 @@ function initFn(){
 		<div class="setItem">顏色:<input type="color" id="vColor" onchange="changeSet()" value="#b0e3ff" /></div>
 		<div class="setItem">粗細:<input type="number" id="vNumber" min="1" max="30" onchange="changeSet()" value="6" style="width:40px;" /></div>
 		<div class="setItem">速率:<input type="number" id="vSpeed" min="1" max="30" onchange="changeSet()" value="1" style="width:40px;" /></div>
-	</div>
-	<div id="debugWin"></div>-->
+	</div>-->
+	<div id="debugWin"></div>
 </body>
 </html>
