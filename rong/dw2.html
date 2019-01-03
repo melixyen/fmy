@@ -58,7 +58,7 @@ body {
 
 <script type="text/javascript">
 
-var pxRate = 0.6;//Adjust image resize rate
+var pxRate = 0.7;//Adjust image resize rate
 //var bgPicW = 9916.99, bgPicH = 6994.7;
 var bgPicW = 8192, bgPicH = 6994.7;
 
@@ -67,9 +67,10 @@ TT ={
 	picHeight: bgPicH,
 	bgWidth: pxRate * bgPicW,
 	bgHeight: pxRate *bgPicH,
+	debugMode: false,
 	scrollRate: 1,
 	moveTable: [
-		[0, 2379, 2466], [1, 2753, 2466], [2,3116,2414], [4, 3560, 2677], [5,3567,2911], [6,3567,3399], [7,3567,3610], 
+		[0, 2379, 2466], [1, 2753, 2466], [2,3116,2466], [4, 3316, 2900], [5,3316,3100], [6,3316,3399], [7,3316,3610], 
 		[8, 4000, 3773], [9,4158,3773], [10,4358,3773], [11,4673,3773], [12,4848,3773], [13, 5057, 3773], 
 		[14,5248,3798], [15,5248,4062], [16,5248,4305], [17,5248,4584], 
 		[18, 5248, 4584], [19,5094,4584], [20,4670,4584], [21,4307,4584], [22,3995,4584], [23,3611,4584], [24,3266,4584], [25,3063,4584], [26,2612,4584],
@@ -81,7 +82,7 @@ TT ={
 		[69,7059,3258], [70,6620,2991], [71,6314,2841],
 		[72,5805,2805], [75,5505,2805], [76,5162,2805], 
 		[77,4961,2645], [79,4635,2645], [80,4339,2215], [82,4335,1457],
-		[84,3933,1300], [85,3900,1300], [86,3557,1300], [88,2922,1300], [90,2279,1300], [92,1621,1300], 
+		[84,3933,1450], [85,3900,1450], [88,3557,1450], [89,2922,1450], [90,2279,1450], [92,1621,1450], 
 		[93,1257,1659], [94,1257,1808], [96,1257,2016], [97,1512,2175], [98,1838,2466], [99,2144,2466],
 		
 		[100, 2379, 2466]
@@ -90,9 +91,11 @@ TT ={
 
 function printPathPercent(per){
 	per = Math.floor(per*100) / 100;
+	//console.log(per);
 	var domD = document.getElementById('debugWin');
 	if(domD){
 		domD.innerHTML = per + '%';
+		domD.style.display = (TT.debugMode) ? '' : 'none';
 	}
 }
 
@@ -199,7 +202,7 @@ function initFn(){
 		<div class="setItem">顏色:<input type="color" id="vColor" onchange="changeSet()" value="#b0e3ff" /></div>
 		<div class="setItem">粗細:<input type="number" id="vNumber" min="1" max="30" onchange="changeSet()" value="6" style="width:40px;" /></div>
 		<div class="setItem">速率:<input type="number" id="vSpeed" min="1" max="30" onchange="changeSet()" value="1" style="width:40px;" /></div>
-	</div>
-	<div id="debugWin"></div>-->
+	</div>-->
+	<div id="debugWin"></div>
 </body>
 </html>
