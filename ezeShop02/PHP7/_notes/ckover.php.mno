@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsTbs4a" value="name:Od;datatype:int,name:Userid;datatype:string,name:Shopid;datatype:int,name:Prdname;datatype:string,name:Date;datatype:date,name:Prdsmany;datatype:int,name:Username;datatype:string,name:Telephone;datatype:string,name:Address;datatype:string,name:Do;datatype:string" />
+</info>

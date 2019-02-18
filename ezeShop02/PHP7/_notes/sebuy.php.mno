@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsBuy1" value="name:Shopid;datatype:int,name:Prdname;datatype:string,name:Prdprice;datatype:int,name:Prdmany;datatype:int,name:Prdtype;datatype:string,name:Prdtext;datatype:string,name:Prdpic;datatype:string" />
+</info>

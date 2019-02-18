@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsTc1" value="name:ID;datatype:int,name:Username;datatype:string,name:Userid;datatype:string,name:Telephone;datatype:string,name:Address;datatype:string,name:Email;datatype:string,name:Userpwd;datatype:string" />
+</info>
